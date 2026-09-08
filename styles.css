@@ -12,6 +12,10 @@
   --radius: 16px;
 }
 
+.brand-logo{
+  height: 3rem;
+}
+
 *{ box-sizing: border-box; }
 
 html{ scroll-behavior: smooth; }

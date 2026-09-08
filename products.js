@@ -82,6 +82,8 @@ window.PRODUCTS = [
 
   { name: "Tomato", price: 120, category: "Keychains", image: "images/tomato.jpeg" },
 
+  { name: "Sunflower or Daisy Keychain", price: 60, category: "Keychains", image: "images/daisy-sunflower.jpeg" },
+
 
 
 
@@ -136,7 +138,7 @@ window.PRODUCTS = [
 
   { name: "Panda Bag Charm", price: 150, category: "Charms", image: "images/panda-charm.jpeg" },
 
-
+  { name: "Tulip Charm", price: 100, category: "Charms", image: "images/tulip-charm.jpeg" },
 
 
 
