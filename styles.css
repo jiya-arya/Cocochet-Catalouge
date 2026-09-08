@@ -86,8 +86,6 @@ body{
   margin-top: 2px;
 }
 
-
-/* ===== Contact Links ===== */
 /* ===== Contact Links ===== */
 
 .brand-contact{
@@ -101,6 +99,10 @@ body{
 
 
 .brand-contact a{
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
   color: var(--maroon);
   text-decoration: none;
 
@@ -121,23 +123,12 @@ body{
 }
 
 
-.brand-contact a{
-  color: var(--maroon);
-  text-decoration: none;
-  transition: color 0.15s ease;
+.contact-icon{
+  width: 13px;
+  height: 13px;
+  object-fit: contain;
+  display: block;
 }
-
-
-.brand-contact a:hover{
-  color: var(--maroon-dark);
-  text-decoration: underline;
-}
-
-
-.brand-contact span{
-  color: var(--ink-soft);
-}
-
 
 /* ===== Category nav ===== */
 
