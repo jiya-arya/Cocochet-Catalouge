@@ -45,7 +45,7 @@ window.PRODUCTS = [
 
   { name: "Pineapple", price: 70, category: "Keychains", image: "images/pineapple.jpeg" },
   
-  { name: "Evil Eye", price: 60, category: "Keychains", image: "images/evil-eye.jpg" },
+  { name: "Evil Eye", price: 60, category: "Keychains", image: "images/evil-eye-2.jpg" },
 
   { name: "Bee Keychain", price: 80, category: "Keychains", image: "images/bees.jpeg" },
 
