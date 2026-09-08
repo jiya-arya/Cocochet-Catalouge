@@ -4,53 +4,147 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Cocochet — Handmade Crochet Catalogue</title>
+
   <link rel="icon" href="data:,">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
+
   <link
     href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Caveat:wght@600;700&display=swap"
     rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
 </head>
 
+
 <body>
 
+  <!-- ===== Header ===== -->
+
   <header class="site-header">
+
     <div class="brand">
+
       <span class="brand-mark" aria-hidden="true">
         <img src="images/logo.png" alt="" class="brand-logo">
       </span>
+
+
       <div class="brand-text">
-        <span class="brand-name">Cocochet</span>
-        <span class="brand-tag">crafted with love, one stitch at a time</span>
+
+        <span class="brand-name">
+          Cocochet
+        </span>
+
+
+        <span class="brand-tag">
+          crafted with love, one stitch at a time
+        </span>
+
+
+        <!-- Instagram + WhatsApp -->
+
+        <div class="brand-contact">
+
+          <a href="https://www.instagram.com/cocochetofficial/" target="_blank" rel="noopener noreferrer">
+            Instagram
+          </a>
+
+          <span>·</span>
+
+          <a href="https://wa.me/916280969844" target="_blank" rel="noopener noreferrer">
+            WhatsApp for Orders
+          </a>
+
+        </div>
+
       </div>
+
     </div>
 
   </header>
- 
+
+
+
+  <!-- ===== Category Navigation ===== -->
+
   <nav class="category-nav" id="categoryNav">
-    <!-- category buttons are generated automatically from products.js -->
+
+    <!-- Category buttons are generated automatically from products.js -->
+
   </nav>
 
+  <!-- ===== Customisation Note ===== -->
+
+  <p class="customisation-note">
+    Customisation Available — DM us for personalised orders
+  </p>
+
+
+
+
+
+  <!-- ===== Main Content ===== -->
+
   <main>
+
     <div class="results-bar">
-      <h1 id="categoryHeading">All items</h1>
-      <span class="results-count" id="resultsCount"></span>
+
+      <h1 id="categoryHeading">
+        All items
+      </h1>
+
+
+      <span class="results-count" id="resultsCount">
+      </span>
+
     </div>
 
+
+
+    <!-- ===== Product Grid ===== -->
+
     <section class="grid" id="productGrid">
-      <!-- product cards are generated automatically -->
+
+      <!-- Product cards are generated automatically -->
+
     </section>
 
-    <p class="empty-state" id="emptyState" hidden>Is category mein abhi koi item nahi hai.</p>
+
+
+    <!-- ===== Empty Category Message ===== -->
+
+    <p class="empty-state" id="emptyState" hidden>
+
+      Is category mein abhi koi item nahi hai.
+
+    </p>
+
   </main>
 
+
+
+  <!-- ===== Footer ===== -->
+
   <footer class="site-footer">
-    <p>Made by Cocochet &middot; prices are for reference, DM to order</p>
+
+    <p>
+      Made by Cocochet &middot;
+      prices are for reference, DM to order
+    </p>
+
   </footer>
 
+
+
+  <!-- ===== JavaScript ===== -->
+
   <script src="products.js"></script>
+
   <script src="script.js"></script>
+
 </body>
 
 </html>
