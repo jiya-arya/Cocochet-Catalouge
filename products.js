@@ -69,12 +69,12 @@ window.PRODUCTS = [
 
   { name: "Watermelon & Lemon Slice Keychain", price: 50, category: "Keychains", image: "images/watermelon-lemon-keychain.jpeg" },
 
-  { name: "Spiderman Face Keychain", price: 60, category: "Keychains", image: "images/spiderman-face-keychain.jpeg" },
+  { name: "Spiderman Face Keychain", price: 80, category: "Keychains", image: "images/spiderman-face-keychain.jpeg" },
   { name: "Dolphin", price: 60, category: "Keychains", image: "images/dolphin.jpeg" },
 
   { name: "Baby Mushroom Keychain", price: 120, category: "Keychains", image: "images/baby-mushroom-keychain.jpeg" },
 
-  { name: "Teddy Bear Keychain", price: 200, category: "Keychains", image: "images/teddy-bear-keychain.jpeg" },
+  { name: "Teddy Bear Keychain", price: 150, category: "Keychains", image: "images/teddy-bear-keychain.jpeg" },
 
   { name: "Strawberry & Cigarette Keychain", price: 120, category: "Keychains", image: "images/strawberry-cig.jpeg" },
 
@@ -82,23 +82,51 @@ window.PRODUCTS = [
 
   { name: "Tomato", price: 120, category: "Keychains", image: "images/tomato.jpeg" },
 
+
+
+
+
+  // bouquets 
+
+  { name: "Sunny Bloom Bouquet", price: 700, category: "Bouquets", image: "images/bouquets/Sunny Bloom Bouquet.jpeg" },
+
+  { name: "Red Heart Bouquet", price: 350, category: "Bouquets", image: "images/bouquets/Red Heart Bouquet.jpeg" },
+
+  { name: "Sunshine Daisy Bouquet", price: 650, category: "Bouquets", image: "images/bouquets/Sunshine Daisy Bouquet.jpeg" },
+
+
+
+
+
+  // Photo Holder
+
+  { name: "Photo Holder - Single", price: 200, category: "Photo Holder", image: "images/photo-holder.jpeg" },
+
+
+
+
+  // Home Decor 
+
+  { name: "Sunflower Potted Plant", price: 150, category: "Home Decor", image: "images/home-decor/sunflower-potted-plant.jpeg" },
+
   { name: "Tulip Potted Plant", price: 300, category: "Home Decor", image: "images/tulip-potted-plant.jpg" },
 
   { name: "Lily Potted Plant", price: 300, category: "Home Decor", image: "images/lily-potted-plant.jpeg" },
 
   { name: "Sunflower Stem - Single", price: 120, category: "Home Decor", image: "images/sunflower-stem.jpeg" },
 
-  { name: "Sunflower Potted Plant", price: 150, category: "Home Decor", image: "images/home-decor/sunflower-potted-plant.jpeg" },
 
-  { name: "Photo Holder - Single", price: 200, category: "Photo-Holder", image: "images/photo-holder.jpeg" },
+
+
+  // Charms 
 
   { name: "Spider Man", price: 250, category: "Charms", image: "images/spider-man.jpeg" },
 
   { name: "Panda Bag Charm", price: 150, category: "Charms", image: "images/panda-charm.jpeg" },
 
-  { name: "Sunny Bloom Bouquet", price: 700, category: "Bouquets", image: "images/bouquets/Sunny Bloom Bouquet.jpeg" },
 
-  { name: "Red Heart Bouquet", price: 700, category: "Bouquets", image: "images/bouquets/Sunny Bloom Bouquet.jpeg" },
+
+
 
 ];
 
