@@ -2,150 +2,365 @@
   ============================================================
   COCOCHET — PRODUCT LIST
   ============================================================
-  Yeh file hi tumhara "catalogue" hai. Website ka look kabhi
-  chhedne ki zarurat nahi — bas neeche di list mein items
-  ADD / REMOVE / EDIT karo, save karo, aur naya price ya item
-  turant site pe dikhega.
 
-  HAR ITEM EK BLOCK HAI:
-  {
-    name: "Item ka naam",       -> jo user ko dikhega
-    price: 149,                  -> sirf number likhna, ₹ apne aap lag jayega
-    category: "Keychains",       -> jis category mein dikhana hai
-    image: "images/xyz.jpeg"      -> image ka file naam (images folder ke andar)
-  },
+  Yeh file tumhara complete catalogue hai.
 
-  --------------------------------------------------------------
-  NAYA ITEM ADD KARNA HO:
-  2. Neeche list mein sabse last item ke baad ek naya block { } bana lo
-     (bilkul jaise doosre items bane hain, comma { }, lagana mat bhoolna)
-  3. Save kar do — bas ho gaya.
+  Har product mein:
+  - name     = Product ka naam
+  - price    = Product ki price
+  - category = Product kis category mein dikhega
+  - image    = Images folder mein image ka path
 
-  ITEM HATANA HO:
-  - Us item ka poora block { ... }, delete kar do.
+  Naya product add karna ho to list ke end mein ek naya
+  product block add kar sakte ho.
 
-  PRICE / NAAM BADALNA HO:
-  - Sirf uss item ke andar "name" ya "price" ki value badal do.
-
-  NAYI CATEGORY BANANI HO (jaise "Bouquets", "Phone Charms" etc):
-  - Bas kisi bhi item ki "category" mein woh naya naam likh do,
-    category apne aap navbar mein dikhne lagegi. Alag se kahin
-    aur kuch likhne ki zarurat nahi.
-  --------------------------------------------------------------
+  Price ya naam change karna ho to sirf us product ki
+  value change karo.
+  ============================================================
 */
 
+
 window.PRODUCTS = [
-  { name: "Avocado Keychain", price: 90, category: "Keychains", image: "images/avacado.jpeg" },
 
-  { name: "Minion Keychain", price: 100, category: "Keychains", image: "images/minion.jpeg" },
+  // ==========================================================
+  // KEYCHAINS
+  // ==========================================================
 
-  { name: "Octopus Keychain", price: 80, category: "Keychains", image: "images/octupas-group.jpeg" },
+  {
+    name: "Avocado Keychain",
+    price: 90,
+    category: "Keychains",
+    image: "images/avacado.jpeg"
+  },
 
-  { name: "Strawberry Keychain", price: 80, category: "Keychains", image: "images/strawberry.jpeg" },
+  {
+    name: "Minion Keychain",
+    price: 100,
+    category: "Keychains",
+    image: "images/minion.jpeg"
+  },
 
-  { name: "Pineapple Keychain", price: 70, category: "Keychains", image: "images/pineapple.jpeg" },
+  {
+    name: "Octopus Keychain",
+    price: 80,
+    category: "Keychains",
+    image: "images/octupas-group.jpeg"
+  },
 
-  { name: "Evil Eye Keychain", price: 60, category: "Keychains", image: "images/evil-eye-2.jpg" },
+  {
+    name: "Strawberry Keychain",
+    price: 80,
+    category: "Keychains",
+    image: "images/strawberry.jpeg"
+  },
 
-  { name: "Bee Keychain", price: 80, category: "Keychains", image: "images/bees.jpeg" },
+  {
+    name: "Pineapple Keychain",
+    price: 70,
+    category: "Keychains",
+    image: "images/pineapple.jpeg"
+  },
 
-  { name: "Star Keychain", price: 80, category: "Keychains", image: "images/star.jpeg" },
+  {
+    name: "Evil Eye Keychain",
+    price: 60,
+    category: "Keychains",
+    image: "images/evil-eye-2.jpg"
+  },
 
-  { name: "Mushroom Keychain", price: 80, category: "Keychains", image: "images/mushroom.jpeg" },
+  {
+    name: "Bee Keychain",
+    price: 80,
+    category: "Keychains",
+    image: "images/bees.jpeg"
+  },
 
-  { name: "Chick Keychain", price: 100, category: "Keychains", image: "images/chick.jpeg" },
+  {
+    name: "Star Keychain",
+    price: 80,
+    category: "Keychains",
+    image: "images/star.jpeg"
+  },
 
-  { name: "Strawberry Bouquet Keychain", price: 150, category: "Keychains", image: "images/strawberry-bouquet-Keychain.jpeg" },
+  {
+    name: "Mushroom Keychain",
+    price: 80,
+    category: "Keychains",
+    image: "images/mushroom.jpeg"
+  },
 
-  { name: "Volleyball Keychain", price: 80, category: "Keychains", image: "images/volleyball.jpg" },
+  {
+    name: "Chick Keychain",
+    price: 100,
+    category: "Keychains",
+    image: "images/chick.jpeg"
+  },
 
-  { name: "Burger Keychain", price: 150, category: "Keychains", image: "images/burger.jpeg" },
+  {
+    name: "Strawberry Bouquet Keychain",
+    price: 150,
+    category: "Keychains",
+    image: "images/strawberry-bouquet-Keychain.jpeg"
+  },
 
-  { name: "Capsule Keychain", price: 80, category: "Keychains", image: "images/capsules.jpg" },
+  {
+    name: "Volleyball Keychain",
+    price: 80,
+    category: "Keychains",
+    image: "images/volleyball.jpg"
+  },
 
-  { name: "Coffee Mug Keychain", price: 120, category: "Keychains", image: "images/coffee-mug.jpg" },
+  {
+    name: "Burger Keychain",
+    price: 150,
+    category: "Keychains",
+    image: "images/burger.jpeg"
+  },
 
-  { name: "Rose Keychain", price: 100, category: "Keychains", image: "images/rose.jpg" },
+  {
+    name: "Capsule Keychain",
+    price: 80,
+    category: "Keychains",
+    image: "images/capsules.jpg"
+  },
 
-  { name: "Watermelon & Lemon Slice Keychain", price: 50, category: "Keychains", image: "images/watermelon-lemon-keychain.jpeg" },
+  {
+    name: "Coffee Mug Keychain",
+    price: 120,
+    category: "Keychains",
+    image: "images/coffee-mug.jpg"
+  },
 
-  { name: "Spiderman Face Keychain", price: 80, category: "Keychains", image: "images/spiderman-face-keychain.jpeg" },
-  { name: "Dolphin", price: 60, category: "Keychains", image: "images/dolphin.jpeg" },
+  {
+    name: "Rose Keychain",
+    price: 100,
+    category: "Keychains",
+    image: "images/rose.jpg"
+  },
 
-  { name: "Baby Mushroom Keychain", price: 120, category: "Keychains", image: "images/baby-mushroom-keychain.jpeg" },
+  {
+    name: "Watermelon & Lemon Slice Keychain",
+    price: 50,
+    category: "Keychains",
+    image: "images/watermelon-lemon-keychain.jpeg"
+  },
 
-  { name: "Teddy Bear Keychain", price: 150, category: "Keychains", image: "images/teddy-bear-keychain.jpeg" },
+  {
+    name: "Spiderman Face Keychain",
+    price: 80,
+    category: "Keychains",
+    image: "images/spiderman-face-keychain.jpeg"
+  },
 
-  { name: "Strawberry & Cigarette Keychain", price: 120, category: "Keychains", image: "images/strawberry-cig.jpeg" },
+  {
+    name: "Dolphin",
+    price: 60,
+    category: "Keychains",
+    image: "images/dolphin.jpeg"
+  },
 
-  { name: "Strawberry with Daisy Keychain", price: 100, category: "Keychains", image: "images/strawberry-with-daisy.jpeg" },
+  {
+    name: "Baby Mushroom Keychain",
+    price: 120,
+    category: "Keychains",
+    image: "images/baby-mushroom-keychain.jpeg"
+  },
 
-  { name: "Tomato", price: 120, category: "Keychains", image: "images/tomato.jpeg" },
+  {
+    name: "Teddy Bear Keychain",
+    price: 150,
+    category: "Keychains",
+    image: "images/teddy-bear-keychain.jpeg"
+  },
 
-  { name: "Sunflower or Daisy Keychain", price: 60, category: "Keychains", image: "images/daisy-sunflower.jpeg" },
+  {
+    name: "Strawberry & Cigarette Keychain",
+    price: 120,
+    category: "Keychains",
+    image: "images/strawberry-cig.jpeg"
+  },
 
+  {
+    name: "Strawberry with Daisy Keychain",
+    price: 100,
+    category: "Keychains",
+    image: "images/strawberry-with-daisy.jpeg"
+  },
 
+  {
+    name: "Tomato",
+    price: 120,
+    category: "Keychains",
+    image: "images/tomato.jpeg"
+  },
 
-
-  // bouquets 
-
-  { name: "Sunny Bloom Bouquet", price: 700, category: "Bouquets", image: "images/bouquets/Sunny Bloom Bouquet.jpeg" },
-
-  { name: "Red Heart Bouquet", price: 350, category: "Bouquets", image: "images/bouquets/Red Heart Bouquet.jpeg"},
-
-  { name: "Sunshine Daisy Bouquet", price: 650, category: "Bouquets", image: "images/bouquets/Sunshine Daisy Bouquet.jpeg" },
-
-  { name: "Two Red Rose Bouquet", price: 300, category: "Bouquets", image: "images/bouquets/2 red rose bouquet.jpeg" },
-
-  { name: "Three Red Rose Bouquet", price: 450, category: "Bouquets", image: "images/bouquets/3 red rose bouquet.jpeg" },
-
-  { name: "Red Blossom Bouquet", price: 500, category: "Bouquets", image: "images/bouquets/Red Blossom Bouquet.jpeg" },
-
-  { name: "Garden of Blooms", price: 450, category: "Bouquets", image: "images/bouquets/Garden of Blooms.jpeg", className: "special-image" },
-
-  { name: "Sunflower Bouquet", price: 800, category: "Bouquets", image: "images/bouquets/Sunflower Bouquet.jpeg" },
-
-  { name: "Pink & White Lily Bouquet", price: 700, category: "Bouquets", image: "images/bouquets/Pink & White Lily Bouquet.jpeg" },
-
-  { name: "Sunshine Tulip Bouquet", price: 400, category: "Bouquets", image: "images/bouquets/Sunshine Tulip Bouquet.jpeg", className: "special-image" },
-
-  { name: "Sunflower Mini Bouquet", price: 150, category: "Bouquets", image: "images/bouquets/Sunflower Mini Bouquet.jpeg" },
-
-  { name: "Red Rose Mini Bouquet", price: 200, category: "Bouquets", image: "images/bouquets/Red Rose Mini Bouquet.jpeg" },
-
-
-
-
-
-  // Photo Holder
-
-  { name: "Photo Holder - Single", price: 200, category: "Photo Holder", image: "images/photo-holder.jpeg" },
-
-
-
-
-  // Home Decor 
-
-  { name: "Sunflower Potted Plant", price: 150, category: "Home Decor", image: "images/home-decor/sunflower-potted-plant.jpeg" },
-
-  { name: "Tulip Potted Plant", price: 250, category: "Home Decor", image: "images/tulip-potted-plant.jpg" },
-
-  { name: "Lily Potted Plant", price: 300, category: "Home Decor", image: "images/lily-potted-plant.jpeg" },
-
-  { name: "Sunflower Stem - Single", price: 120, category: "Home Decor", image: "images/sunflower-stem.jpeg" },
-
-
-
-
-  // Charms 
-
-  { name: "Spider Man", price: 250, category: "Charms", image: "images/spider-man.jpeg" },
-
-  { name: "Panda Bag Charm", price: 150, category: "Charms", image: "images/panda-charm.jpeg" },
-
-  { name: "Tulip Charm", price: 100, category: "Charms", image: "images/tulip-charm.jpeg" },
+  {
+    name: "Sunflower or Daisy Keychain",
+    price: 60,
+    category: "Keychains",
+    image: "images/daisy-sunflower.jpeg"
+  },
 
 
+  // ==========================================================
+  // BOUQUETS
+  // ==========================================================
+
+  {
+    name: "Sunny Bloom Bouquet",
+    price: 700,
+    category: "Bouquets",
+    image: "images/bouquets/Sunny Bloom Bouquet.jpeg"
+  },
+
+  {
+    name: "Red Heart Bouquet",
+    price: 350,
+    category: "Bouquets",
+    image: "images/bouquets/Red Heart Bouquet.jpeg"
+  },
+
+  {
+    name: "Sunshine Daisy Bouquet",
+    price: 650,
+    category: "Bouquets",
+    image: "images/bouquets/Sunshine Daisy Bouquet.jpeg"
+  },
+
+  {
+    name: "Two Red Rose Bouquet",
+    price: 300,
+    category: "Bouquets",
+    image: "images/bouquets/2 red rose bouquet.jpeg"
+  },
+
+  {
+    name: "Three Red Rose Bouquet",
+    price: 450,
+    category: "Bouquets",
+    image: "images/bouquets/3 red rose bouquet.jpeg"
+  },
+
+  {
+    name: "Red Blossom Bouquet",
+    price: 500,
+    category: "Bouquets",
+    image: "images/bouquets/Red Blossom Bouquet.jpeg"
+  },
+
+  {
+    name: "Sunflower Bouquet",
+    price: 800,
+    category: "Bouquets",
+    image: "images/bouquets/Sunflower Bouquet.jpeg"
+  },
+
+  {
+    name: "Pink & White Lily Bouquet",
+    price: 700,
+    category: "Bouquets",
+    image: "images/bouquets/Pink & White Lily Bouquet.jpeg"
+  },
+
+  {
+    name: "Sunflower Mini Bouquet",
+    price: 150,
+    category: "Bouquets",
+    image: "images/bouquets/Sunflower Mini Bouquet.jpeg"
+  },
+
+  {
+    name: "Red Rose Mini Bouquet",
+    price: 200,
+    category: "Bouquets",
+    image: "images/bouquets/Red Rose Mini Bouquet.jpeg"
+  },
+
+  {
+    name: "Sunshine Tulip Bouquet",
+    price: 400,
+    category: "Bouquets",
+    image: "images/bouquets/Sunshine Tulip Bouquet.jpeg",
+    className: "special-image"
+  },
+
+  {
+    name: "Garden of Blooms",
+    price: 450,
+    category: "Bouquets",
+    image: "images/bouquets/Garden of Blooms.jpeg",
+    className: "special-image"
+  },
+
+
+  // ==========================================================
+  // PHOTO HOLDER
+  // ==========================================================
+
+  {
+    name: "Photo Holder - Single",
+    price: 200,
+    category: "Photo Holder",
+    image: "images/photo-holder.jpeg"
+  },
+
+
+  // ==========================================================
+  // HOME DECOR
+  // ==========================================================
+
+  {
+    name: "Sunflower Potted Plant",
+    price: 150,
+    category: "Home Decor",
+    image: "images/home-decor/sunflower-potted-plant.jpeg"
+  },
+
+  {
+    name: "Tulip Potted Plant",
+    price: 250,
+    category: "Home Decor",
+    image: "images/tulip-potted-plant.jpg"
+  },
+
+  {
+    name: "Lily Potted Plant",
+    price: 300,
+    category: "Home Decor",
+    image: "images/lily-potted-plant.jpeg"
+  },
+
+  {
+    name: "Sunflower Stem - Single",
+    price: 120,
+    category: "Home Decor",
+    image: "images/sunflower-stem.jpeg"
+  },
+
+
+  // ==========================================================
+  // CHARMS
+  // ==========================================================
+
+  {
+    name: "Spider Man",
+    price: 250,
+    category: "Charms",
+    image: "images/spider-man.jpeg"
+  },
+
+  {
+    name: "Panda Bag Charm",
+    price: 150,
+    category: "Charms",
+    image: "images/panda-charm.jpeg"
+  },
+
+  {
+    name: "Tulip Charm",
+    price: 100,
+    category: "Charms",
+    image: "images/tulip-charm.jpeg"
+  }
 
 ];
-
