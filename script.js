@@ -967,7 +967,7 @@
 
     let message =
 
-      "🧶 *COCOCHET — NEW ORDER*\n\n" +
+      " *COCOCHET — NEW ORDER*\n\n" +
 
       "*Order received:* " +
       receivedDate +
