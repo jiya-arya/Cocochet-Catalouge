@@ -87,7 +87,6 @@ window.PRODUCTS = [
 
 
 
-
   // bouquets 
 
   { name: "Sunny Bloom Bouquet", price: 700, category: "Bouquets", image: "images/bouquets/Sunny Bloom Bouquet.jpeg" },
