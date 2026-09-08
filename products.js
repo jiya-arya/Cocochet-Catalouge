@@ -59,7 +59,7 @@ window.PRODUCTS = [
 
   { name: "Volleyball Keychain", price: 80, category: "Keychains", image: "images/volleyball.jpg" },
 
-  { name: "Burger Keychain", price: 150, category: "Keychains", image: "images/burger.jpg" },
+  { name: "Burger Keychain", price: 150, category: "Keychains", image: "images/burger.jpeg" },
 
   { name: "Capsule Keychain", price: 80, category: "Keychains", image: "images/capsules.jpg" },
 
@@ -101,6 +101,10 @@ window.PRODUCTS = [
   { name: "Red Blossom Bouquet", price: 500, category: "Bouquets", image: "images/bouquets/Red Blossom Bouquet.jpeg" },
 
   { name: "Garden of Blooms", price: 450, category: "Bouquets", image: "images/bouquets/Garden of Blooms.jpeg" },
+
+  { name: "Sunflower Bouquet", price: 800, category: "Bouquets", image: "images/bouquets/Sunflower Bouquet.jpeg" },
+
+  { name: "Pink & White Lily Bouquet", price: 700, category: "Bouquets", image: "images/bouquets/Pink & White Lily Bouquet.jpeg" },
 
 
 
