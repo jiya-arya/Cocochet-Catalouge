@@ -59,7 +59,7 @@ window.PRODUCTS = [
 
   { name: "Volleyball Keychain", price: 80, category: "Keychains", image: "images/volleyball.jpg" },
 
-  { name: "Burger Keychain", price: 80, category: "Keychains", image: "images/burger.jpg" },
+  { name: "Burger Keychain", price: 150, category: "Keychains", image: "images/burger.jpg" },
 
   { name: "Capsule Keychain", price: 80, category: "Keychains", image: "images/capsules.jpg" },
 
@@ -78,15 +78,25 @@ window.PRODUCTS = [
 
   { name: "Strawberry & Cigarette Keychain", price: 120, category: "Keychains", image: "images/strawberry-cig.jpeg" },
 
+  { name: "Strawberry with Daisy Keychain", price: 100, category: "Keychains", image: "images/strawberry-with-daisy.jpeg" },
+
   { name: "Tomato", price: 120, category: "Keychains", image: "images/tomato.jpeg" },
 
   { name: "Tulip Potted Plant", price: 300, category: "Home Decor", image: "images/tulip-potted-plant.jpg" },
+
+  { name: "Lily Potted Plant", price: 300, category: "Home Decor", image: "images/lily-potted-plant.jpeg" },
 
   { name: "Sunflower Stem - Single", price: 120, category: "Home Decor", image: "images/sunflower-stem.jpeg" },
 
   { name: "Photo Holder - Single", price: 200, category: "Photo-Holder", image: "images/photo-holder.jpeg" },
 
   { name: "Spider Man", price: 250, category: "Charms", image: "images/spider-man.jpeg" },
+
+  { name: "Panda Bag Charm", price: 150, category: "Charms", image: "images/panda-charm.jpeg" },
+
+  { name: "Sunny Bloom Bouquet", price: 700, category: "Bouquets", image: "images/bouquets/Sunny Bloom Bouquet.jpeg" },
+
+  { name: "Red Heart Bouquet", price: 700, category: "Bouquets", image: "images/bouquets/Sunny Bloom Bouquet.jpeg" },
 
 ];
 
