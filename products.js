@@ -63,7 +63,7 @@ window.PRODUCTS = [
 
   { name: "Capsule Keychain", price: 80, category: "Keychains", image: "images/capsules.jpg" },
 
-  { name: "Coffee Mug Keychain", price: 80, category: "Keychains", image: "images/coffee-mug.jpg" },
+  { name: "Coffee Mug Keychain", price: 120, category: "Keychains", image: "images/coffee-mug.jpg" },
 
   { name: "Rose Keychain", price: 100, category: "Keychains", image: "images/rose.jpg" },
 
