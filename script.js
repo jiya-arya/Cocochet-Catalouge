@@ -113,7 +113,7 @@
       .map(
         (p) => `
 
-        <article class="card">
+        <article class="card ${escapeHtml(p.className || "")}">
 
           <div class="card-image">
 

@@ -91,7 +91,7 @@ window.PRODUCTS = [
 
   { name: "Sunny Bloom Bouquet", price: 700, category: "Bouquets", image: "images/bouquets/Sunny Bloom Bouquet.jpeg" },
 
-  { name: "Red Heart Bouquet", price: 350, category: "Bouquets", image: "images/bouquets/Red Heart Bouquet.jpeg" },
+  { name: "Red Heart Bouquet", price: 350, category: "Bouquets", image: "images/bouquets/Red Heart Bouquet.jpeg"},
 
   { name: "Sunshine Daisy Bouquet", price: 650, category: "Bouquets", image: "images/bouquets/Sunshine Daisy Bouquet.jpeg" },
 
@@ -101,11 +101,17 @@ window.PRODUCTS = [
 
   { name: "Red Blossom Bouquet", price: 500, category: "Bouquets", image: "images/bouquets/Red Blossom Bouquet.jpeg" },
 
-  { name: "Garden of Blooms", price: 450, category: "Bouquets", image: "images/bouquets/Garden of Blooms.jpeg" },
+  { name: "Garden of Blooms", price: 450, category: "Bouquets", image: "images/bouquets/Garden of Blooms.jpeg", className: "special-image" },
 
   { name: "Sunflower Bouquet", price: 800, category: "Bouquets", image: "images/bouquets/Sunflower Bouquet.jpeg" },
 
   { name: "Pink & White Lily Bouquet", price: 700, category: "Bouquets", image: "images/bouquets/Pink & White Lily Bouquet.jpeg" },
+
+  { name: "Sunshine Tulip Bouquet", price: 400, category: "Bouquets", image: "images/bouquets/Sunshine Tulip Bouquet.jpeg", className: "special-image" },
+
+  { name: "Sunflower Mini Bouquet", price: 150, category: "Bouquets", image: "images/bouquets/Sunflower Mini Bouquet.jpeg" },
+
+  { name: "Red Rose Mini Bouquet", price: 200, category: "Bouquets", image: "images/bouquets/Red Rose Mini Bouquet.jpeg" },
 
 
 
