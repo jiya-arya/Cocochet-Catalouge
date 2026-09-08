@@ -51,7 +51,7 @@ window.PRODUCTS = [
 
   { name: "Star Keychain", price: 80, category: "Keychains", image: "images/star.jpeg" },
 
-  { name: "Mushroom Keychain", price: 60, category: "Keychains", image: "images/mushroom.jpeg" },
+  { name: "Mushroom Keychain", price: 80, category: "Keychains", image: "images/mushroom.jpeg" },
 
   { name: "Chick Keychain", price: 100, category: "Keychains", image: "images/chick.jpeg" },
 
@@ -93,6 +93,10 @@ window.PRODUCTS = [
   { name: "Red Heart Bouquet", price: 350, category: "Bouquets", image: "images/bouquets/Red Heart Bouquet.jpeg" },
 
   { name: "Sunshine Daisy Bouquet", price: 650, category: "Bouquets", image: "images/bouquets/Sunshine Daisy Bouquet.jpeg" },
+
+  { name: "Two Red Rose Bouquet", price: 300, category: "Bouquets", image: "images/bouquets/2 red rose bouquet.jpeg" },
+
+  { name: "Three Red Rose Bouquet", price: 450, category: "Bouquets", image: "images/bouquets/3 red rose bouquet.jpeg" },
 
 
 
