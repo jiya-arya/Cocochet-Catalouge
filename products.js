@@ -122,7 +122,7 @@ window.PRODUCTS = [
 
   { name: "Sunflower Potted Plant", price: 150, category: "Home Decor", image: "images/home-decor/sunflower-potted-plant.jpeg" },
 
-  { name: "Tulip Potted Plant", price: 300, category: "Home Decor", image: "images/tulip-potted-plant.jpg" },
+  { name: "Tulip Potted Plant", price: 250, category: "Home Decor", image: "images/tulip-potted-plant.jpg" },
 
   { name: "Lily Potted Plant", price: 300, category: "Home Decor", image: "images/lily-potted-plant.jpeg" },
 
