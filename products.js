@@ -88,6 +88,8 @@ window.PRODUCTS = [
 
   { name: "Sunflower Stem - Single", price: 120, category: "Home Decor", image: "images/sunflower-stem.jpeg" },
 
+  { name: "Sunflower Potted Plant", price: 150, category: "Home Decor", image: "images/home-decor/sunflower-potted-plant.jpeg" },
+
   { name: "Photo Holder - Single", price: 200, category: "Photo-Holder", image: "images/photo-holder.jpeg" },
 
   { name: "Spider Man", price: 250, category: "Charms", image: "images/spider-man.jpeg" },
