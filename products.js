@@ -98,6 +98,10 @@ window.PRODUCTS = [
 
   { name: "Three Red Rose Bouquet", price: 450, category: "Bouquets", image: "images/bouquets/3 red rose bouquet.jpeg" },
 
+  { name: "Red Blossom Bouquet", price: 500, category: "Bouquets", image: "images/bouquets/Red Blossom Bouquet.jpeg" },
+
+  { name: "Garden of Blooms", price: 450, category: "Bouquets", image: "images/bouquets/Garden of Blooms.jpeg" },
+
 
 
 
