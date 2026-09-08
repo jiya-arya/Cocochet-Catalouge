@@ -55,7 +55,7 @@ window.PRODUCTS = [
 
   { name: "Chick Keychain", price: 100, category: "Keychains", image: "images/chick.jpeg" },
 
-  { name: "Strawberry Bouquet Keychain", price: 120, category: "Keychains", image: "images/strawberry-bouquet-Keychain.jpeg" },
+  { name: "Strawberry Bouquet Keychain", price: 150, category: "Keychains", image: "images/strawberry-bouquet-Keychain.jpeg" },
 
   { name: "Volleyball Keychain", price: 80, category: "Keychains", image: "images/volleyball.jpg" },
 
