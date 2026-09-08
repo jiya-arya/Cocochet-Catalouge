@@ -43,9 +43,9 @@ window.PRODUCTS = [
 
   { name: "Strawberry Keychain", price: 80, category: "Keychains", image: "images/strawberry.jpeg" },
 
-  { name: "Pineapple", price: 70, category: "Keychains", image: "images/pineapple.jpeg" },
-  
-  { name: "Evil Eye", price: 60, category: "Keychains", image: "images/evil-eye-2.jpg" },
+  { name: "Pineapple Keychain", price: 70, category: "Keychains", image: "images/pineapple.jpeg" },
+
+  { name: "Evil Eye Keychain", price: 60, category: "Keychains", image: "images/evil-eye-2.jpg" },
 
   { name: "Bee Keychain", price: 80, category: "Keychains", image: "images/bees.jpeg" },
 
@@ -58,13 +58,13 @@ window.PRODUCTS = [
   { name: "Strawberry Bouquet Keychain", price: 120, category: "Keychains", image: "images/strawberry-bouquet-Keychain.jpeg" },
 
   { name: "Volleyball Keychain", price: 80, category: "Keychains", image: "images/volleyball.jpg" },
-  
+
   { name: "Burger Keychain", price: 80, category: "Keychains", image: "images/burger.jpg" },
-  
+
   { name: "Capsule Keychain", price: 80, category: "Keychains", image: "images/capsules.jpg" },
-  
+
   { name: "Coffee Mug Keychain", price: 80, category: "Keychains", image: "images/coffee-mug.jpg" },
-  
+
   { name: "Rose Keychain", price: 100, category: "Keychains", image: "images/rose.jpg" },
 
   { name: "Watermelon & Lemon Slice Keychain", price: 50, category: "Keychains", image: "images/watermelon-lemon-keychain.jpeg" },
@@ -75,13 +75,17 @@ window.PRODUCTS = [
   { name: "Baby Mushroom Keychain", price: 120, category: "Keychains", image: "images/baby-mushroom-keychain.jpeg" },
 
   { name: "Teddy Bear Keychain", price: 200, category: "Keychains", image: "images/teddy-bear-keychain.jpeg" },
-  
+
+  { name: "Strawberry & Cigarette Keychain", price: 120, category: "Keychains", image: "images/strawberry-cig.jpeg" },
+
   { name: "Tomato", price: 120, category: "Keychains", image: "images/tomato.jpeg" },
 
-  { name: "Tulip Potted Plant", price: 300, category: "Potted Plant", image: "images/tulip-potted-plant.jpg" },
+  { name: "Tulip Potted Plant", price: 300, category: "Home Decor", image: "images/tulip-potted-plant.jpg" },
 
-  { name: "Photo Holder", price: 200, category: "Photo-Holder", image: "images/photo-holder.jpeg" },
- 
+  { name: "Sunflower Stem - Single", price: 120, category: "Home Decor", image: "images/sunflower-stem.jpeg" },
+
+  { name: "Photo Holder - Single", price: 200, category: "Photo-Holder", image: "images/photo-holder.jpeg" },
+
   { name: "Spider Man", price: 250, category: "Charms", image: "images/spider-man.jpeg" },
 
 ];
