@@ -88,14 +88,36 @@ body{
 
 
 /* ===== Contact Links ===== */
+/* ===== Contact Links ===== */
 
 .brand-contact{
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   margin-top: 5px;
   font-size: 0.68rem;
   font-weight: 600;
+}
+
+
+.brand-contact a{
+  color: var(--maroon);
+  text-decoration: none;
+
+  transition:
+    color 0.15s ease,
+    opacity 0.15s ease;
+}
+
+
+.brand-contact a:hover{
+  color: var(--maroon-dark);
+  text-decoration: underline;
+}
+
+
+.brand-contact span{
+  color: var(--ink-soft);
 }
 
 
