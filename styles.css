@@ -188,7 +188,8 @@ body{
 
 .customisation-note{
   /* text-align: center; */
-
+font-style: italic;
+opacity: 80%;
   margin: 10px 16px 0;
 
   color: var(--maroon);
