@@ -139,7 +139,7 @@ window.PRODUCTS = [
   },
 
   {
-    name: "Watermelon & Lemon Slice Keychain",
+    name: "Watermelon & Lemon Slice Keychain - One Piece",
     price: 50,
     category: "Keychains",
     image: "images/watermelon-lemon-keychain.jpeg"
