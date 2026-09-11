@@ -154,7 +154,7 @@ window.PRODUCTS = [
 
   {
     name: "Dolphin",
-    price: 60,
+    price: 80,
     category: "Keychains",
     image: "images/dolphin.jpeg"
   },
