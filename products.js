@@ -35,7 +35,7 @@ window.PRODUCTS = [
 
   {
     name: "Minion Keychain",
-    price: 100,
+    price: 130,
     category: "Keychains",
     image: "images/minion.jpeg"
   },
@@ -49,7 +49,7 @@ window.PRODUCTS = [
 
   {
     name: "Strawberry Keychain",
-    price: 80,
+    price: 90,
     category: "Keychains",
     image: "images/strawberry.jpeg"
   },
@@ -63,14 +63,14 @@ window.PRODUCTS = [
 
   {
     name: "Evil Eye Keychain",
-    price: 60,
+    price: 80,
     category: "Keychains",
     image: "images/evil-eye-2.jpg"
   },
 
   {
     name: "Bee Keychain",
-    price: 80,
+    price: 100,
     category: "Keychains",
     image: "images/bees.jpeg"
   },
@@ -84,14 +84,14 @@ window.PRODUCTS = [
 
   {
     name: "Mushroom Keychain",
-    price: 80,
+    price: 90,
     category: "Keychains",
     image: "images/mushroom.jpeg"
   },
 
   {
     name: "Chick Keychain",
-    price: 100,
+    price: 120,
     category: "Keychains",
     image: "images/chick.jpeg"
   },
@@ -208,6 +208,13 @@ window.PRODUCTS = [
 
   {
     name: "Sunny Bloom Bouquet",
+    price: 750,
+    category: "Bouquets",
+    image: "images/bouquets/4 red rose.jpeg"
+  },
+
+  {
+    name: "Sunny Bloom Bouquet",
     price: 700,
     category: "Bouquets",
     image: "images/bouquets/Sunny Bloom Bouquet.jpeg"
@@ -311,7 +318,7 @@ window.PRODUCTS = [
 
   {
     name: "Sunflower Potted Plant",
-    price: 150,
+    price: 200,
     category: "Home Decor",
     image: "images/home-decor/sunflower-potted-plant.jpeg"
   },
@@ -358,7 +365,7 @@ window.PRODUCTS = [
 
   {
     name: "Tulip Charm",
-    price: 100,
+    price: 120,
     category: "Charms",
     image: "images/tulip-charm.jpeg"
   }
