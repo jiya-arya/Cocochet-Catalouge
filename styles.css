@@ -1522,3 +1522,20 @@ main {
   }
 
 }
+
+.form-group select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid rgba(139, 30, 63, 0.18);
+  border-radius: 14px;
+  background-color: #ffffff;
+  font-family: inherit;
+  font-size: 1rem;
+  color: inherit;
+  outline: none;
+  cursor: pointer;
+}
+
+.form-group select:focus {
+  border-color: #8b1e3f;
+}

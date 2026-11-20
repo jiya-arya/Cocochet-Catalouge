@@ -607,7 +607,6 @@
 
   }
 
-
   // ==========================================================
   // CHECKOUT FORM
   // ==========================================================
@@ -617,48 +616,30 @@
     const existing =
       document.getElementById("checkoutBox");
 
-
     if (existing) {
       existing.remove();
     }
 
-
     const checkoutBox =
       document.createElement("div");
 
-
     checkoutBox.id = "checkoutBox";
-
     checkoutBox.className = "checkout-box";
-
 
     const today =
       getTodayDate();
 
-
     checkoutBox.innerHTML = `
 
       <div class="checkout-header">
-
-        <h2>
-          Order Details
-        </h2>
-
-        <p>
-          Please fill in your details to place the order.
-        </p>
-
+        <h2>Order Details</h2>
+        <p>Please fill in your details to place the order.</p>
       </div>
-
 
       <form id="checkoutForm">
 
         <div class="form-group">
-
-          <label for="customerName">
-            Name
-          </label>
-
+          <label for="customerName">Name</label>
           <input
             type="text"
             id="customerName"
@@ -667,16 +648,10 @@
             autocomplete="name"
             required
           >
-
         </div>
 
-
         <div class="form-group">
-
-          <label for="customerWhatsapp">
-            WhatsApp Number
-          </label>
-
+          <label for="customerWhatsapp">WhatsApp Number</label>
           <input
             type="tel"
             id="customerWhatsapp"
@@ -686,16 +661,30 @@
             autocomplete="tel"
             required
           >
-
         </div>
 
+        <div class="form-group">
+          <label for="deliveryMethod">Delivery Option</label>
+          <select id="deliveryMethod" name="deliveryMethod" required>
+            <option value="Rapido / Parcel Delivery">Rapido / Parcel Delivery (Charges extra as per location)</option>
+            <option value="Self Pickup">Self Pickup (Free)</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="addressGroup">
+          <label for="customerAddress">Delivery Address</label>
+          <textarea
+            id="customerAddress"
+            name="customerAddress"
+            rows="2"
+            placeholder="House/Flat no., Sector/Area, Landmark, City (e.g., Zirakpur, Mohali)"
+            autocomplete="street-address"
+            required
+          ></textarea>
+        </div>
 
         <div class="form-group">
-
-          <label for="neededBy">
-            Needed by
-          </label>
-
+          <label for="neededBy">Needed by</label>
           <input
             type="date"
             id="neededBy"
@@ -703,81 +692,49 @@
             min="${today}"
             required
           >
-
         </div>
 
-
         <div class="form-group">
-
           <label for="customisation">
-
-            Customisation
-            <span>(optional)</span>
-
+            Customisation <span>(optional)</span>
           </label>
-
           <textarea
             id="customisation"
             name="customisation"
             rows="4"
             placeholder="Any colour, size, name or other request?"
           ></textarea>
-
         </div>
-
 
         <div class="checkout-total">
-
-          <span>
-            Order Total
-          </span>
-
-          <strong>
-            ${formatPrice(getCartTotal())}
-          </strong>
-
+          <span>Order Total</span>
+          <strong>${formatPrice(getCartTotal())}</strong>
         </div>
 
+        <p id="deliveryNote" style="font-size: 0.82rem; opacity: 0.8; margin-top: -6px; margin-bottom: 14px;">
+          *Rapido / parcel delivery charges are extra as per actual location fare (shared on WhatsApp).
+        </p>
 
         <div class="checkout-actions">
-
-          <button
-            type="button"
-            class="back-button"
-            id="backToOrderButton">
-
+          <button type="button" class="back-button" id="backToOrderButton">
             Back
-
           </button>
-
-
-          <button
-            type="submit"
-            class="whatsapp-button">
-
+          <button type="submit" class="whatsapp-button">
             Continue to WhatsApp ↗
-
           </button>
-
         </div>
 
-
       </form>
-
     `;
 
-
     orderSectionEl.appendChild(checkoutBox);
-
 
     checkoutBox.scrollIntoView({
       behavior: "smooth",
       block: "center"
     });
 
-
     setupCheckoutEvents();
-
   }
 
 
@@ -790,50 +747,65 @@
     const form =
       document.getElementById("checkoutForm");
 
-
     const backButton =
       document.getElementById("backToOrderButton");
 
+    const deliverySelect =
+      document.getElementById("deliveryMethod");
+
+    const addressGroup =
+      document.getElementById("addressGroup");
+
+    const addressInput =
+      document.getElementById("customerAddress");
+
+    const deliveryNote =
+      document.getElementById("deliveryNote");
+
+    if (deliverySelect && addressGroup && addressInput) {
+      deliverySelect.addEventListener("change", () => {
+        if (deliverySelect.value === "Self Pickup") {
+          addressGroup.hidden = true;
+          addressInput.required = false;
+          addressInput.value = "";
+          if (deliveryNote) {
+            deliveryNote.textContent = "*Self pickup location will be shared on WhatsApp.";
+          }
+        } else {
+          addressGroup.hidden = false;
+          addressInput.required = true;
+          if (deliveryNote) {
+            deliveryNote.textContent = "*Rapido / parcel delivery charges are extra as per actual location fare (shared on WhatsApp).";
+          }
+        }
+      });
+    }
 
     if (backButton) {
-
       backButton.addEventListener(
         "click",
         () => {
-
           const checkoutBox =
             document.getElementById("checkoutBox");
-
 
           if (checkoutBox) {
             checkoutBox.remove();
           }
 
-
           openOrderSection();
-
         }
       );
-
     }
 
-
     if (form) {
-
       form.addEventListener(
         "submit",
         (event) => {
-
           event.preventDefault();
-
-
           submitOrder(form);
-
         }
       );
-
     }
-
   }
 
 
@@ -847,106 +819,70 @@
       return;
     }
 
-
     const formData =
       new FormData(form);
 
-
     const customerName =
-      String(
-        formData.get("customerName") || ""
-      ).trim();
-
+      String(formData.get("customerName") || "").trim();
 
     const customerWhatsapp =
-      String(
-        formData.get("customerWhatsapp") || ""
-      ).trim();
+      String(formData.get("customerWhatsapp") || "").trim();
 
+    const deliveryMethod =
+      String(formData.get("deliveryMethod") || "Rapido / Parcel Delivery").trim();
+
+    const customerAddress =
+      String(formData.get("customerAddress") || "").trim();
 
     const neededBy =
-      String(
-        formData.get("neededBy") || ""
-      ).trim();
-
+      String(formData.get("neededBy") || "").trim();
 
     const customisation =
-      String(
-        formData.get("customisation") || ""
-      ).trim();
+      String(formData.get("customisation") || "").trim();
 
+    const isDelivery =
+      deliveryMethod !== "Self Pickup";
 
     if (
       !customerName ||
       !customerWhatsapp ||
+      (isDelivery && !customerAddress) ||
       !neededBy
     ) {
-
-      alert(
-        "Please fill all required details."
-      );
-
+      alert("Please fill all required details.");
       return;
-
     }
-
 
     if (!isValidWhatsapp(customerWhatsapp)) {
-
-      alert(
-        "Please enter a valid WhatsApp number."
-      );
-
+      alert("Please enter a valid WhatsApp number.");
       return;
-
     }
-
 
     const today =
       getTodayDate();
 
-
     if (neededBy < today) {
-
-      alert(
-        "Please select today or a future date."
-      );
-
+      alert("Please select today or a future date.");
       return;
-
     }
-
 
     const now =
       new Date();
 
-
     const receivedDate =
       formatDateTime(now);
-
 
     const neededByFormatted =
       formatDate(neededBy);
 
-
     const orderLines =
       cart
         .map((item) => {
-
-          const product =
-            list[item.productIndex];
-
-
+          const product = list[item.productIndex];
           if (!product) {
             return "";
           }
-
-
-          const itemTotal =
-            Number(product.price) *
-            item.quantity;
-
-
+          const itemTotal = Number(product.price) * item.quantity;
           return (
             "• " +
             product.name +
@@ -955,64 +891,43 @@
             " — " +
             formatPrice(itemTotal)
           );
-
         })
         .filter(Boolean)
         .join("\n");
 
-
     const total =
       getCartTotal();
 
+    const addressLine = isDelivery
+      ? "Address: " + customerAddress + "\n"
+      : "";
+
+    const totalNote = isDelivery
+      ? " (+ Rapido/parcel charges as per location)"
+      : " (Self Pickup)";
 
     let message =
-
       " *COCOCHET — NEW ORDER*\n\n" +
-
-      "*Order received:* " +
-      receivedDate +
-      "\n" +
-
-      "*Needed by:* " +
-      neededByFormatted +
-      "\n\n" +
-
+      "*Order received:* " + receivedDate + "\n" +
+      "*Needed by:* " + neededByFormatted + "\n\n" +
       "*Customer details*\n" +
-
-      "Name: " +
-      customerName +
-      "\n" +
-
-      "WhatsApp: " +
-      customerWhatsapp +
-      "\n\n" +
-
+      "Name: " + customerName + "\n" +
+      "WhatsApp: " + customerWhatsapp + "\n" +
+      "Delivery: " + deliveryMethod + "\n" +
+      addressLine + "\n" +
       "*Order*\n" +
-
-      orderLines +
-      "\n\n" +
-
-      "*Total: " +
-      formatPrice(total) +
-      "*";
-
+      orderLines + "\n\n" +
+      "*Total: " + formatPrice(total) + "*" + totalNote;
 
     if (customisation) {
-
       message +=
         "\n\n*Customisation / Message*\n" +
         customisation;
-
     }
 
+    message += "\n\nThank you! ❤️";
 
-    message +=
-      "\n\nThank you! ❤️";
-
-
-    const whatsappNumber =
-      "916280969844";
-
+    const whatsappNumber = "916280969844";
 
     const whatsappUrl =
       "https://wa.me/" +
@@ -1020,21 +935,20 @@
       "?text=" +
       encodeURIComponent(message);
 
-
     window.open(
       whatsappUrl,
       "_blank",
       "noopener,noreferrer"
     );
 
-
     showOrderReceived(
       customerName,
+      deliveryMethod,
+      customerAddress,
       neededByFormatted,
       receivedDate,
       total
     );
-
   }
 
 
@@ -1044,123 +958,105 @@
 
   function showOrderReceived(
     customerName,
+    deliveryMethod,
+    customerAddress,
     neededBy,
     receivedDate,
     total
   ) {
 
+    const isDelivery =
+      deliveryMethod !== "Self Pickup";
+
+    const addressReceiptRow = isDelivery
+      ? `
+          <div>
+            <span>Address</span>
+            <strong>${escapeHtml(customerAddress)}</strong>
+          </div>
+        `
+      : "";
+
     orderSectionEl.innerHTML = `
 
       <div class="order-box success-box">
 
-        <div class="success-icon">
-          ✓
-        </div>
+        <div class="success-icon">✓</div>
 
-
-        <h2>
-          Order ready!
-        </h2>
-
+        <h2>Order ready!</h2>
 
         <p class="success-main">
           Your order details have been prepared in WhatsApp.
         </p>
 
-
         <div class="receipt-summary">
 
           <div>
             <span>Customer</span>
-            <strong>
-              ${escapeHtml(customerName)}
-            </strong>
+            <strong>${escapeHtml(customerName)}</strong>
           </div>
 
+          <div>
+            <span>Delivery Mode</span>
+            <strong>${escapeHtml(deliveryMethod)}</strong>
+          </div>
+
+          ${addressReceiptRow}
 
           <div>
             <span>Order received</span>
-            <strong>
-              ${escapeHtml(receivedDate)}
-            </strong>
+            <strong>${escapeHtml(receivedDate)}</strong>
           </div>
-
 
           <div>
             <span>Needed by</span>
-            <strong>
-              ${escapeHtml(neededBy)}
-            </strong>
+            <strong>${escapeHtml(neededBy)}</strong>
           </div>
 
-
           <div>
-            <span>Total</span>
-            <strong>
-              ${formatPrice(total)}
-            </strong>
+            <span>Order Total</span>
+            <strong>${formatPrice(total)}${isDelivery ? " (+ Delivery)" : ""}</strong>
           </div>
 
         </div>
-
 
         <p class="whatsapp-note">
           WhatsApp will open with your order receipt.
           Please press <strong>Send</strong> to place the order.
         </p>
 
-
-        <button
-          type="button"
-          class="done-button"
-          id="newOrderButton">
-
+        <button type="button" class="done-button" id="newOrderButton">
           Start New Order
-
         </button>
 
       </div>
-
     `;
 
-
     orderSectionEl.hidden = false;
-
 
     const newOrderButton =
       document.getElementById("newOrderButton");
 
-
     if (newOrderButton) {
-
       newOrderButton.addEventListener(
         "click",
         () => {
-
           cart = [];
-
           renderOrderSection();
-
           renderStickyCart();
-
           window.scrollTo({
             top: 0,
             behavior: "smooth"
           });
-
         }
       );
-
     }
-
 
     orderSectionEl.scrollIntoView({
       behavior: "smooth",
       block: "center"
     });
-
   }
-
 
   // ==========================================================
   // PRODUCT GRID EVENTS
