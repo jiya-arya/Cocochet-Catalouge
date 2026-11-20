@@ -22,6 +22,15 @@
 <body>
 
   <!-- ======================================================
+       DELIVERY INFO BAR
+  ======================================================= -->
+
+  <div class="top-banner">
+    Delivering across Chandigarh, Mohali, Panchkula & Zirakpur via Rapido · Self-pickup available
+  </div>
+
+
+  <!-- ======================================================
        HEADER
   ======================================================= -->
 
@@ -30,11 +39,8 @@
     <div class="brand">
 
       <span class="brand-mark" aria-hidden="true">
-
         <img src="images/logo.png" alt="" class="brand-logo">
-
       </span>
-
 
       <div class="brand-text">
 
@@ -42,34 +48,23 @@
           Cocochet
         </span>
 
-
         <span class="brand-tag">
           crafted with love, one stitch at a time
         </span>
 
-
         <!-- Instagram + WhatsApp -->
-
         <div class="brand-contact">
 
           <a href="https://www.instagram.com/cocochetofficial/" target="_blank" rel="noopener noreferrer">
-
             <img src="images/instagram.png" alt="" class="contact-icon">
-
             Instagram ↗
-
           </a>
-
 
           <span>·</span>
 
-
           <a href="https://wa.me/916280969844" target="_blank" rel="noopener noreferrer">
-
             <img src="images/whatsapp.png" alt="" class="contact-icon">
-
             WhatsApp Orders ↗
-
           </a>
 
         </div>
@@ -86,19 +81,31 @@
   ======================================================= -->
 
   <nav class="category-nav" id="categoryNav">
-
     <!-- Categories generated automatically by JavaScript -->
-
   </nav>
 
 
   <!-- ======================================================
-       CUSTOMISATION NOTE
+       SEARCH + CUSTOMISATION NOTE
   ======================================================= -->
 
-  <p class="customisation-note">
-    Customisation Available — DM us for personalised orders
-  </p>
+  <div class="catalogue-controls">
+
+    <div class="search-wrap">
+      <input
+        type="search"
+        id="searchInput"
+        class="search-input"
+        placeholder="Search keychains, bouquets, sunflowers..."
+        aria-label="Search products"
+      >
+    </div>
+
+    <p class="customisation-note">
+      Customisation Available — Tap any item for details or DM us for personalised orders
+    </p>
+
+  </div>
 
 
   <!-- ======================================================
@@ -113,7 +120,6 @@
         All items
       </h1>
 
-
       <span class="results-count" id="resultsCount">
       </span>
 
@@ -125,9 +131,7 @@
     ===================================================== -->
 
     <section class="grid" id="productGrid">
-
       <!-- Product cards generated automatically -->
-
     </section>
 
 
@@ -136,22 +140,106 @@
     ===================================================== -->
 
     <p class="empty-state" id="emptyState" hidden>
-
-      Is category mein abhi koi item nahi hai.
-
+      Is search ya category mein abhi koi item nahi mila.
     </p>
 
   </main>
+
 
   <!-- ======================================================
        YOUR ORDER / CART
   ======================================================= -->
 
   <section class="order-section" id="orderSection" hidden>
-
     <!-- Order/cart generated automatically by JavaScript -->
+  </section>
+
+
+  <!-- ======================================================
+       CUSTOMER REVIEWS / SOCIAL PROOF
+  ======================================================= -->
+
+  <section class="reviews-section" aria-label="Customer reviews">
+
+    <div class="reviews-header">
+      <h2>Loved by Customers</h2>
+      <a href="https://www.instagram.com/cocochetofficial/" target="_blank" rel="noopener noreferrer">
+        See more on @cocochetofficial ↗
+      </a>
+    </div>
+
+  <div class="reviews-grid">
+  
+    <figure class="review-shot">
+      <img src="images/reviews/rev1.jpeg" alt="Customer review screenshot 1" loading="lazy">
+    </figure>
+  
+    <figure class="review-shot">
+      <img src="images/reviews/rev2.jpeg" alt="Customer review screenshot 2" loading="lazy">
+    </figure>
+  
+    <figure class="review-shot">
+      <img src="images/reviews/rev3.jpeg" alt="Customer review screenshot 2" loading="lazy">
+    </figure>
+  
+    <figure class="review-shot">
+      <img src="images/reviews/rev4.jpeg" alt="Customer review screenshot 3" loading="lazy">
+    </figure>
+
+    <figure class="review-shot">
+      <img src="images/reviews/rev5.jpeg" alt="Customer review screenshot 3" loading="lazy">
+    </figure>
+
+    <figure class="review-shot">
+      <img src="images/reviews/rev6.jpeg" alt="Customer review screenshot 3" loading="lazy">
+    </figure>
+  
+  </div>
 
   </section>
+
+
+  <!-- ======================================================
+       PRODUCT QUICK VIEW MODAL
+  ======================================================= -->
+
+  <div class="modal-backdrop" id="productModal" hidden>
+
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
+      <button type="button" class="modal-close" id="modalCloseBtn" aria-label="Close">
+        ✕
+      </button>
+
+      <div class="modal-media">
+        <img id="modalMainImg" src="" alt="">
+        <div class="modal-thumbs" id="modalThumbs"></div>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="modal-meta">
+          <span class="modal-category" id="modalCategory"></span>
+          <span class="modal-badge" id="modalBadge" hidden></span>
+        </div>
+
+        <h2 id="modalTitle"></h2>
+
+        <p class="modal-price" id="modalPrice"></p>
+
+        <p class="modal-desc" id="modalDesc"></p>
+
+        <p class="modal-making" id="modalMaking"></p>
+
+        <button type="button" class="done-button modal-add-btn" id="modalAddBtn">
+          + Add to Order
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
 
 
   <!-- ======================================================
@@ -161,8 +249,8 @@
   <footer class="site-footer">
 
     <p>
-      Handmade with Love by Cocochet &middot;
-      DM to order
+      Handmade with Love by Cocochet ·
+      <a href="https://www.instagram.com/cocochetofficial/" target="_blank" rel="noopener noreferrer">@cocochetofficial</a>
     </p>
 
   </footer>
@@ -173,7 +261,6 @@
   ======================================================= -->
 
   <script src="products.js"></script>
-
   <script src="script.js"></script>
 
 </body>

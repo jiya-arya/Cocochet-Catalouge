@@ -1,5 +1,5 @@
 // ============================================================
-// COCOCHET — CATALOGUE + CART + CHECKOUT + WHATSAPP
+// COCOCHET — CATALOGUE + SEARCH + MODAL + CART + WHATSAPP
 // ============================================================
 
 (function () {
@@ -9,27 +9,41 @@
   // ==========================================================
 
   const navEl = document.getElementById("categoryNav");
+  const searchInputEl = document.getElementById("searchInput");
   const gridEl = document.getElementById("productGrid");
   const headingEl = document.getElementById("categoryHeading");
   const countEl = document.getElementById("resultsCount");
   const emptyEl = document.getElementById("emptyState");
   const orderSectionEl = document.getElementById("orderSection");
 
+  // Modal Elements
+  const modalEl = document.getElementById("productModal");
+  const modalCloseBtn = document.getElementById("modalCloseBtn");
+  const modalMainImg = document.getElementById("modalMainImg");
+  const modalThumbs = document.getElementById("modalThumbs");
+  const modalCategory = document.getElementById("modalCategory");
+  const modalBadge = document.getElementById("modalBadge");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalPrice = document.getElementById("modalPrice");
+  const modalDesc = document.getElementById("modalDesc");
+  const modalMaking = document.getElementById("modalMaking");
+  const modalAddBtn = document.getElementById("modalAddBtn");
+
 
   // ==========================================================
-  // PRODUCTS
+  // PRODUCTS & STATE
   // ==========================================================
 
   const list = Array.isArray(window.PRODUCTS)
     ? window.PRODUCTS
     : [];
 
-
-  // ==========================================================
-  // CART
-  // ==========================================================
-
   let cart = [];
+  let activeCategory = "All";
+  let searchQuery = "";
+  let modalProductIndex = null;
+
+  const GIFT_WRAP_PRICE = 10;
 
 
   // ==========================================================
@@ -39,18 +53,13 @@
   const categories = [];
 
   list.forEach((product) => {
-
     if (
       product.category &&
       !categories.includes(product.category)
     ) {
       categories.push(product.category);
     }
-
   });
-
-
-  let activeCategory = "All";
 
 
   // ==========================================================
@@ -58,7 +67,6 @@
   // ==========================================================
 
   function renderNav() {
-
     const allCategories = [
       "All",
       ...categories
@@ -70,14 +78,11 @@
           <button
             class="chip${category === activeCategory ? " active" : ""}"
             data-category="${escapeHtml(category)}">
-
             ${escapeHtml(category)}
-
           </button>
         `
       )
       .join("");
-
   }
 
 
@@ -86,249 +91,249 @@
   // ==========================================================
 
   function renderGrid() {
+    const query = searchQuery.trim().toLowerCase();
 
-    const items = (
-      activeCategory === "All"
-        ? list
-        : list.filter(
-          (product) =>
-            product.category === activeCategory
-        )
-    )
+    const items = list
+      .filter((product) => {
+        const matchesCategory =
+          activeCategory === "All" ||
+          product.category === activeCategory;
+
+        const matchesSearch =
+          !query ||
+          String(product.name || "").toLowerCase().includes(query) ||
+          String(product.category || "").toLowerCase().includes(query) ||
+          String(product.desc || "").toLowerCase().includes(query);
+
+        return matchesCategory && matchesSearch;
+      })
       .slice()
       .sort(
         (a, b) =>
           Number(a.price) - Number(b.price)
       );
 
-
-    headingEl.textContent =
-      activeCategory === "All"
+    headingEl.textContent = query
+      ? `Search: "${searchQuery.trim()}"`
+      : activeCategory === "All"
         ? "All items"
         : activeCategory;
 
-
     countEl.textContent =
       items.length +
-      (
-        items.length === 1
-          ? " item"
-          : " items"
-      );
-
+      (items.length === 1 ? " item" : " items");
 
     if (items.length === 0) {
-
       gridEl.innerHTML = "";
-
       emptyEl.hidden = false;
-
       return;
-
     }
-
 
     emptyEl.hidden = true;
 
-
     gridEl.innerHTML = items
       .map((product) => {
+        const productIndex = list.indexOf(product);
+        const badgeText = product.badge || "";
+        const isReady = badgeText.toLowerCase().includes("ready");
 
-        const productIndex =
-          list.indexOf(product);
-
+        const badgeHtml = badgeText
+          ? `<span class="card-badge${isReady ? " ready" : ""}">${escapeHtml(badgeText)}</span>`
+          : "";
 
         return `
-
           <article
             class="card ${escapeHtml(product.className || "")}"
+            data-product-index="${productIndex}"
             style="--product-image: url('${escapeHtml(product.image)}');">
 
-            <div class="card-image">
+            ${badgeHtml}
 
+            <div class="card-image">
               <img
                 src="${escapeHtml(product.image)}"
                 alt="${escapeHtml(product.name)}"
                 loading="lazy"
-
                 onerror="
                   this.closest('.card-image').style.background='#F3ECDF';
                   this.remove();
                 "
               >
-
             </div>
-
 
             <div class="card-body">
 
               <div class="card-info">
-
                 <span class="card-name">
                   ${escapeHtml(product.name)}
                 </span>
-
                 <span class="card-category">
                   ${escapeHtml(product.category || "")}
                 </span>
-
               </div>
 
-
               <div class="card-bottom">
-
                 <span class="card-price">
                   ${formatPrice(product.price)}
                 </span>
-
 
                 <button
                   type="button"
                   class="add-button"
                   data-product-index="${productIndex}"
                   aria-label="Add ${escapeHtml(product.name)}">
-
                   +
-
                 </button>
-
               </div>
 
             </div>
 
           </article>
-
         `;
-
       })
       .join("");
-
   }
 
 
   // ==========================================================
-  // ADD TO CART
+  // PRODUCT QUICK VIEW MODAL
+  // ==========================================================
+
+  function openProductModal(productIndex) {
+    const product = list[productIndex];
+    if (!product || !modalEl) {
+      return;
+    }
+
+    modalProductIndex = productIndex;
+
+    const allImages =
+      Array.isArray(product.images) && product.images.length > 0
+        ? product.images
+        : [product.image];
+
+    modalMainImg.src = allImages[0];
+    modalMainImg.alt = product.name;
+
+    if (allImages.length > 1) {
+      modalThumbs.innerHTML = allImages
+        .map(
+          (imgSrc, idx) => `
+            <img
+              src="${escapeHtml(imgSrc)}"
+              alt=""
+              class="${idx === 0 ? "active" : ""}"
+              data-src="${escapeHtml(imgSrc)}"
+            >
+          `
+        )
+        .join("");
+      modalThumbs.hidden = false;
+    } else {
+      modalThumbs.innerHTML = "";
+      modalThumbs.hidden = true;
+    }
+
+    modalCategory.textContent = product.category || "";
+
+    if (product.badge) {
+      modalBadge.textContent = product.badge;
+      modalBadge.hidden = false;
+    } else {
+      modalBadge.hidden = true;
+    }
+
+    modalTitle.textContent = product.name;
+    modalPrice.textContent = formatPrice(product.price);
+
+    modalDesc.textContent =
+      product.desc ||
+      "Handmade with love using soft premium yarn. Colours can be customised on request.";
+
+    modalMaking.textContent =
+      "Making / Dispatch: " +
+      (product.makingTime || "1–3 days (Custom colours available)");
+
+    modalEl.hidden = false;
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeProductModal() {
+    if (!modalEl) {
+      return;
+    }
+    modalEl.hidden = true;
+    modalProductIndex = null;
+    document.body.style.overflow = "";
+  }
+
+
+  // ==========================================================
+  // ADD TO CART & QUANTITY
   // ==========================================================
 
   function addToCart(productIndex) {
-
     const product = list[productIndex];
-
     if (!product) {
       return;
     }
 
-
     const existingItem = cart.find(
-      (item) =>
-        item.productIndex === productIndex
+      (item) => item.productIndex === productIndex
     );
 
-
     if (existingItem) {
-
       existingItem.quantity += 1;
-
     } else {
-
       cart.push({
         productIndex: productIndex,
         quantity: 1
       });
-
     }
 
-
     renderOrderSection();
-
     renderStickyCart();
-
   }
 
-
-  // ==========================================================
-  // CHANGE QUANTITY
-  // ==========================================================
-
-  function changeQuantity(
-    productIndex,
-    change
-  ) {
-
+  function changeQuantity(productIndex, change) {
     const item = cart.find(
-      (cartItem) =>
-        cartItem.productIndex === productIndex
+      (cartItem) => cartItem.productIndex === productIndex
     );
-
 
     if (!item) {
       return;
     }
 
-
     item.quantity += change;
 
-
     if (item.quantity <= 0) {
-
       cart = cart.filter(
-        (cartItem) =>
-          cartItem.productIndex !== productIndex
+        (cartItem) => cartItem.productIndex !== productIndex
       );
-
     }
 
-
     renderOrderSection();
-
     renderStickyCart();
-
   }
 
-
-  // ==========================================================
-  // CART TOTAL
-  // ==========================================================
-
   function getCartTotal() {
-
     return cart.reduce(
       (total, item) => {
-
-        const product =
-          list[item.productIndex];
-
-
+        const product = list[item.productIndex];
         if (!product) {
           return total;
         }
-
-
-        return (
-          total +
-          Number(product.price) *
-          item.quantity
-        );
-
+        return total + Number(product.price) * item.quantity;
       },
       0
     );
-
   }
 
-
-  // ==========================================================
-  // TOTAL ITEMS
-  // ==========================================================
-
   function getTotalItems() {
-
     return cart.reduce(
-      (total, item) =>
-        total + item.quantity,
+      (total, item) => total + item.quantity,
       0
     );
-
   }
 
 
@@ -337,186 +342,108 @@
   // ==========================================================
 
   function renderStickyCart() {
-
-    let stickyCart =
-      document.getElementById("stickyCart");
-
+    let stickyCart = document.getElementById("stickyCart");
 
     if (!stickyCart) {
-
-      stickyCart =
-        document.createElement("button");
-
+      stickyCart = document.createElement("button");
       stickyCart.type = "button";
-
       stickyCart.id = "stickyCart";
-
       stickyCart.className = "sticky-cart";
-
       document.body.appendChild(stickyCart);
-
     }
 
-
-    const totalItems =
-      getTotalItems();
-
-
-    const total =
-      getCartTotal();
-
+    const totalItems = getTotalItems();
+    const total = getCartTotal();
 
     if (totalItems === 0) {
-
       stickyCart.classList.remove("show");
-
       return;
-
     }
 
-
     stickyCart.innerHTML = `
-
       <span class="sticky-cart-left">
-
-        <span class="sticky-cart-icon">
-          🛒
-        </span>
-
-        <span>
-          ${totalItems}
-          ${totalItems === 1 ? "item" : "items"}
-        </span>
-
+        <span class="sticky-cart-icon">🛒</span>
+        <span>${totalItems} ${totalItems === 1 ? "item" : "items"}</span>
       </span>
-
 
       <span class="sticky-cart-middle">
         ${formatPrice(total)}
       </span>
 
-
       <span class="sticky-cart-right">
         View order →
       </span>
-
     `;
 
-
     stickyCart.classList.add("show");
-
   }
 
 
   // ==========================================================
-  // OPEN ORDER SECTION
+  // ORDER SECTION
   // ==========================================================
 
   function openOrderSection() {
-
     if (!orderSectionEl) {
       return;
     }
-
-
     orderSectionEl.hidden = false;
-
-
     orderSectionEl.scrollIntoView({
       behavior: "smooth",
       block: "center"
     });
-
   }
 
-
-  // ==========================================================
-  // RENDER ORDER SECTION
-  // ==========================================================
-
   function renderOrderSection() {
-
     if (!orderSectionEl) {
       return;
     }
 
-
     if (cart.length === 0) {
-
       orderSectionEl.hidden = true;
-
       orderSectionEl.innerHTML = "";
-
       return;
-
     }
-
 
     orderSectionEl.hidden = false;
 
-
-    const total =
-      getCartTotal();
-
-
-    const totalItems =
-      getTotalItems();
-
+    const total = getCartTotal();
+    const totalItems = getTotalItems();
 
     const itemsHtml = cart
       .map((item) => {
-
-        const product =
-          list[item.productIndex];
-
-
+        const product = list[item.productIndex];
         if (!product) {
           return "";
         }
 
-
-        const itemTotal =
-          Number(product.price) *
-          item.quantity;
-
+        const itemTotal = Number(product.price) * item.quantity;
 
         return `
-
           <div class="order-item">
 
             <div class="order-item-info">
-
               <span class="order-item-name">
                 ${escapeHtml(product.name)}
               </span>
-
               <span class="order-item-price">
-                ${formatPrice(item.price || product.price)}
-                × ${item.quantity}
-                = ${formatPrice(itemTotal)}
+                ${formatPrice(product.price)} × ${item.quantity} = ${formatPrice(itemTotal)}
               </span>
-
             </div>
 
-
             <div class="quantity-controls">
-
               <button
                 type="button"
                 class="quantity-button"
                 data-action="decrease"
                 data-product-index="${item.productIndex}"
                 aria-label="Decrease quantity">
-
                 −
-
               </button>
-
 
               <span class="quantity-number">
                 ${item.quantity}
               </span>
-
 
               <button
                 type="button"
@@ -524,113 +451,64 @@
                 data-action="increase"
                 data-product-index="${item.productIndex}"
                 aria-label="Increase quantity">
-
                 +
-
               </button>
-
             </div>
 
           </div>
-
         `;
-
       })
       .join("");
 
-
     orderSectionEl.innerHTML = `
-
       <div class="order-box">
 
         <div class="order-header">
-
           <div>
-
-            <h2>
-              Your Order
-            </h2>
-
-            <p>
-              ${totalItems}
-              ${totalItems === 1 ? "item" : "items"}
-            </p>
-
+            <h2>Your Order</h2>
+            <p>${totalItems} ${totalItems === 1 ? "item" : "items"}</p>
           </div>
 
-
-          <button
-            type="button"
-            class="clear-order-button"
-            id="clearOrderButton">
-
+          <button type="button" class="clear-order-button" id="clearOrderButton">
             Clear
-
           </button>
-
         </div>
-
 
         <div class="order-items">
-
           ${itemsHtml}
-
         </div>
-
 
         <div class="order-total">
-
-          <span>
-            Total
-          </span>
-
-          <strong>
-            ${formatPrice(total)}
-          </strong>
-
+          <span>Total</span>
+          <strong>${formatPrice(total)}</strong>
         </div>
 
-
-        <button
-          type="button"
-          class="done-button"
-          id="doneButton">
-
-          Done
-
+        <button type="button" class="done-button" id="doneButton">
+          Proceed to Checkout
         </button>
 
-
       </div>
-
     `;
-
   }
+
 
   // ==========================================================
   // CHECKOUT FORM
   // ==========================================================
 
   function renderCheckoutForm() {
-
-    const existing =
-      document.getElementById("checkoutBox");
-
+    const existing = document.getElementById("checkoutBox");
     if (existing) {
       existing.remove();
     }
 
-    const checkoutBox =
-      document.createElement("div");
-
+    const checkoutBox = document.createElement("div");
     checkoutBox.id = "checkoutBox";
     checkoutBox.className = "checkout-box";
 
-    const today =
-      getTodayDate();
+    const today = getTodayDate();
 
     checkoutBox.innerHTML = `
-
       <div class="checkout-header">
         <h2>Order Details</h2>
         <p>Please fill in your details to place the order.</p>
@@ -696,24 +574,30 @@
 
         <div class="form-group">
           <label for="customisation">
-            Customisation <span>(optional)</span>
+            Customisation / Card Message <span>(optional)</span>
           </label>
           <textarea
             id="customisation"
             name="customisation"
-            rows="4"
-            placeholder="Any colour, size, name or other request?"
+            rows="3"
+            placeholder="Any colour, size, name or handwritten note text?"
           ></textarea>
         </div>
 
+        <label class="gift-option" for="giftWrap">
+          <input type="checkbox" id="giftWrap" name="giftWrap">
+          <span>Add Gift Wrap + Handwritten Card (+${formatPrice(GIFT_WRAP_PRICE)})</span>
+        </label>
+
         <div class="checkout-total">
           <span>Order Total</span>
-          <strong>${formatPrice(getCartTotal())}</strong>
+          <strong id="checkoutTotalDisplay">${formatPrice(getCartTotal())}</strong>
         </div>
 
-        <p id="deliveryNote" style="font-size: 0.82rem; opacity: 0.8; margin-top: -6px; margin-bottom: 14px;">
-          *Rapido / parcel delivery charges are extra as per actual location fare (shared on WhatsApp).
-        </p>
+        <div class="policy-notes">
+          <p id="deliveryNote">• Rapido / parcel delivery charges are extra as per actual location fare (shared on WhatsApp).</p>
+          <p>• Customised orders are confirmed after 50% advance UPI payment on WhatsApp.</p>
+        </div>
 
         <div class="checkout-actions">
           <button type="button" class="back-button" id="backToOrderButton">
@@ -743,24 +627,22 @@
   // ==========================================================
 
   function setupCheckoutEvents() {
+    const form = document.getElementById("checkoutForm");
+    const backButton = document.getElementById("backToOrderButton");
+    const deliverySelect = document.getElementById("deliveryMethod");
+    const addressGroup = document.getElementById("addressGroup");
+    const addressInput = document.getElementById("customerAddress");
+    const deliveryNote = document.getElementById("deliveryNote");
+    const giftWrapCheckbox = document.getElementById("giftWrap");
+    const totalDisplay = document.getElementById("checkoutTotalDisplay");
 
-    const form =
-      document.getElementById("checkoutForm");
-
-    const backButton =
-      document.getElementById("backToOrderButton");
-
-    const deliverySelect =
-      document.getElementById("deliveryMethod");
-
-    const addressGroup =
-      document.getElementById("addressGroup");
-
-    const addressInput =
-      document.getElementById("customerAddress");
-
-    const deliveryNote =
-      document.getElementById("deliveryNote");
+    if (giftWrapCheckbox && totalDisplay) {
+      giftWrapCheckbox.addEventListener("change", () => {
+        const finalTotal =
+          getCartTotal() + (giftWrapCheckbox.checked ? GIFT_WRAP_PRICE : 0);
+        totalDisplay.textContent = formatPrice(finalTotal);
+      });
+    }
 
     if (deliverySelect && addressGroup && addressInput) {
       deliverySelect.addEventListener("change", () => {
@@ -769,42 +651,33 @@
           addressInput.required = false;
           addressInput.value = "";
           if (deliveryNote) {
-            deliveryNote.textContent = "*Self pickup location will be shared on WhatsApp.";
+            deliveryNote.textContent = "• Self pickup location will be shared on WhatsApp.";
           }
         } else {
           addressGroup.hidden = false;
           addressInput.required = true;
           if (deliveryNote) {
-            deliveryNote.textContent = "*Rapido / parcel delivery charges are extra as per actual location fare (shared on WhatsApp).";
+            deliveryNote.textContent = "• Rapido / parcel delivery charges are extra as per actual location fare (shared on WhatsApp).";
           }
         }
       });
     }
 
     if (backButton) {
-      backButton.addEventListener(
-        "click",
-        () => {
-          const checkoutBox =
-            document.getElementById("checkoutBox");
-
-          if (checkoutBox) {
-            checkoutBox.remove();
-          }
-
-          openOrderSection();
+      backButton.addEventListener("click", () => {
+        const checkoutBox = document.getElementById("checkoutBox");
+        if (checkoutBox) {
+          checkoutBox.remove();
         }
-      );
+        openOrderSection();
+      });
     }
 
     if (form) {
-      form.addEventListener(
-        "submit",
-        (event) => {
-          event.preventDefault();
-          submitOrder(form);
-        }
-      );
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        submitOrder(form);
+      });
     }
   }
 
@@ -814,34 +687,21 @@
   // ==========================================================
 
   function submitOrder(form) {
-
     if (cart.length === 0) {
       return;
     }
 
-    const formData =
-      new FormData(form);
+    const formData = new FormData(form);
 
-    const customerName =
-      String(formData.get("customerName") || "").trim();
+    const customerName = String(formData.get("customerName") || "").trim();
+    const customerWhatsapp = String(formData.get("customerWhatsapp") || "").trim();
+    const deliveryMethod = String(formData.get("deliveryMethod") || "Rapido / Parcel Delivery").trim();
+    const customerAddress = String(formData.get("customerAddress") || "").trim();
+    const neededBy = String(formData.get("neededBy") || "").trim();
+    const customisation = String(formData.get("customisation") || "").trim();
+    const hasGiftWrap = formData.get("giftWrap") === "on";
 
-    const customerWhatsapp =
-      String(formData.get("customerWhatsapp") || "").trim();
-
-    const deliveryMethod =
-      String(formData.get("deliveryMethod") || "Rapido / Parcel Delivery").trim();
-
-    const customerAddress =
-      String(formData.get("customerAddress") || "").trim();
-
-    const neededBy =
-      String(formData.get("neededBy") || "").trim();
-
-    const customisation =
-      String(formData.get("customisation") || "").trim();
-
-    const isDelivery =
-      deliveryMethod !== "Self Pickup";
+    const isDelivery = deliveryMethod !== "Self Pickup";
 
     if (
       !customerName ||
@@ -858,45 +718,40 @@
       return;
     }
 
-    const today =
-      getTodayDate();
-
+    const today = getTodayDate();
     if (neededBy < today) {
       alert("Please select today or a future date.");
       return;
     }
 
-    const now =
-      new Date();
+    const now = new Date();
+    const receivedDate = formatDateTime(now);
+    const neededByFormatted = formatDate(neededBy);
 
-    const receivedDate =
-      formatDateTime(now);
+    const orderLines = cart
+      .map((item) => {
+        const product = list[item.productIndex];
+        if (!product) {
+          return "";
+        }
+        const itemTotal = Number(product.price) * item.quantity;
+        return (
+          "• " +
+          product.name +
+          " × " +
+          item.quantity +
+          " — " +
+          formatPrice(itemTotal)
+        );
+      })
+      .filter(Boolean)
+      .join("\n");
 
-    const neededByFormatted =
-      formatDate(neededBy);
+    const giftLine = hasGiftWrap
+      ? "\n• Gift Wrap + Handwritten Card — " + formatPrice(GIFT_WRAP_PRICE)
+      : "";
 
-    const orderLines =
-      cart
-        .map((item) => {
-          const product = list[item.productIndex];
-          if (!product) {
-            return "";
-          }
-          const itemTotal = Number(product.price) * item.quantity;
-          return (
-            "• " +
-            product.name +
-            " × " +
-            item.quantity +
-            " — " +
-            formatPrice(itemTotal)
-          );
-        })
-        .filter(Boolean)
-        .join("\n");
-
-    const total =
-      getCartTotal();
+    const total = getCartTotal() + (hasGiftWrap ? GIFT_WRAP_PRICE : 0);
 
     const addressLine = isDelivery
       ? "Address: " + customerAddress + "\n"
@@ -916,7 +771,8 @@
       "Delivery: " + deliveryMethod + "\n" +
       addressLine + "\n" +
       "*Order*\n" +
-      orderLines + "\n\n" +
+      orderLines +
+      giftLine + "\n\n" +
       "*Total: " + formatPrice(total) + "*" + totalNote;
 
     if (customisation) {
@@ -925,7 +781,7 @@
         customisation;
     }
 
-    message += "\n\nThank you! ❤️";
+    message += "\n\nThank you!";
 
     const whatsappNumber = "916280969844";
 
@@ -935,11 +791,7 @@
       "?text=" +
       encodeURIComponent(message);
 
-    window.open(
-      whatsappUrl,
-      "_blank",
-      "noopener,noreferrer"
-    );
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
 
     showOrderReceived(
       customerName,
@@ -964,9 +816,7 @@
     receivedDate,
     total
   ) {
-
-    const isDelivery =
-      deliveryMethod !== "Self Pickup";
+    const isDelivery = deliveryMethod !== "Self Pickup";
 
     const addressReceiptRow = isDelivery
       ? `
@@ -978,7 +828,6 @@
       : "";
 
     orderSectionEl.innerHTML = `
-
       <div class="order-box success-box">
 
         <div class="success-icon">✓</div>
@@ -1034,22 +883,17 @@
 
     orderSectionEl.hidden = false;
 
-    const newOrderButton =
-      document.getElementById("newOrderButton");
-
+    const newOrderButton = document.getElementById("newOrderButton");
     if (newOrderButton) {
-      newOrderButton.addEventListener(
-        "click",
-        () => {
-          cart = [];
-          renderOrderSection();
-          renderStickyCart();
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-          });
-        }
-      );
+      newOrderButton.addEventListener("click", () => {
+        cart = [];
+        renderOrderSection();
+        renderStickyCart();
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      });
     }
 
     orderSectionEl.scrollIntoView({
@@ -1058,351 +902,197 @@
     });
   }
 
+
   // ==========================================================
-  // PRODUCT GRID EVENTS
+  // GLOBAL & GRID EVENTS
   // ==========================================================
 
-  gridEl.addEventListener(
-    "click",
-    (event) => {
+  // Product Card Click (Add button OR Quick View Modal)
+  gridEl.addEventListener("click", (event) => {
+    const addButton = event.target.closest(".add-button");
 
-      const addButton =
-        event.target.closest(".add-button");
-
-
-      if (!addButton) {
-        return;
-      }
-
-
-      const productIndex =
-        Number(
-          addButton.dataset.productIndex
-        );
-
-
+    if (addButton) {
+      event.stopPropagation();
+      const productIndex = Number(addButton.dataset.productIndex);
       addToCart(productIndex);
-
+      return;
     }
-  );
 
-
-  // ==========================================================
-  // ORDER SECTION EVENTS
-  // ==========================================================
-
-  orderSectionEl.addEventListener(
-    "click",
-    (event) => {
-
-
-      const quantityButton =
-        event.target.closest(
-          ".quantity-button"
-        );
-
-
-      if (quantityButton) {
-
-        const productIndex =
-          Number(
-            quantityButton.dataset.productIndex
-          );
-
-
-        const action =
-          quantityButton.dataset.action;
-
-
-        if (action === "increase") {
-
-          changeQuantity(
-            productIndex,
-            1
-          );
-
-        }
-
-
-        if (action === "decrease") {
-
-          changeQuantity(
-            productIndex,
-            -1
-          );
-
-        }
-
-
-        return;
-
-      }
-
-
-      const clearButton =
-        event.target.closest(
-          "#clearOrderButton"
-        );
-
-
-      if (clearButton) {
-
-        cart = [];
-
-        renderOrderSection();
-
-        renderStickyCart();
-
-        return;
-
-      }
-
-
-      const doneButton =
-        event.target.closest(
-          "#doneButton"
-        );
-
-
-      if (doneButton) {
-
-        renderCheckoutForm();
-
-      }
-
+    const card = event.target.closest(".card");
+    if (card) {
+      const productIndex = Number(card.dataset.productIndex);
+      openProductModal(productIndex);
     }
-  );
+  });
 
+  // Modal Events
+  if (modalCloseBtn) {
+    modalCloseBtn.addEventListener("click", closeProductModal);
+  }
 
-  // ==========================================================
-  // STICKY CART EVENT
-  // ==========================================================
+  if (modalEl) {
+    modalEl.addEventListener("click", (event) => {
+      if (event.target === modalEl) {
+        closeProductModal();
+      }
+    });
+  }
 
-  document.addEventListener(
-    "click",
-    (event) => {
-
-      const stickyCart =
-        event.target.closest("#stickyCart");
-
-
-      if (!stickyCart) {
+  if (modalThumbs) {
+    modalThumbs.addEventListener("click", (event) => {
+      const thumb = event.target.closest("img");
+      if (!thumb) {
         return;
       }
+      modalMainImg.src = thumb.dataset.src;
+      modalThumbs.querySelectorAll("img").forEach((img) => img.classList.remove("active"));
+      thumb.classList.add("active");
+    });
+  }
 
+  if (modalAddBtn) {
+    modalAddBtn.addEventListener("click", () => {
+      if (modalProductIndex !== null) {
+        addToCart(modalProductIndex);
+        closeProductModal();
+      }
+    });
+  }
 
-      openOrderSection();
-
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && modalEl && !modalEl.hidden) {
+      closeProductModal();
     }
-  );
+  });
 
-
-  // ==========================================================
-  // CATEGORY EVENTS
-  // ==========================================================
-
-  navEl.addEventListener(
-    "click",
-    (event) => {
-
-      const button =
-        event.target.closest(".chip");
-
-
-      if (!button) {
-        return;
-      }
-
-
-      activeCategory =
-        button.dataset.category;
-
-
-      renderNav();
-
+  // Search Input
+  if (searchInputEl) {
+    searchInputEl.addEventListener("input", (event) => {
+      searchQuery = event.target.value;
       renderGrid();
+    });
+  }
 
+  // Order Section Events
+  orderSectionEl.addEventListener("click", (event) => {
+    const quantityButton = event.target.closest(".quantity-button");
 
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+    if (quantityButton) {
+      const productIndex = Number(quantityButton.dataset.productIndex);
+      const action = quantityButton.dataset.action;
 
+      if (action === "increase") {
+        changeQuantity(productIndex, 1);
+      }
+
+      if (action === "decrease") {
+        changeQuantity(productIndex, -1);
+      }
+      return;
     }
-  );
+
+    const clearButton = event.target.closest("#clearOrderButton");
+    if (clearButton) {
+      cart = [];
+      renderOrderSection();
+      renderStickyCart();
+      return;
+    }
+
+    const doneButton = event.target.closest("#doneButton");
+    if (doneButton) {
+      renderCheckoutForm();
+    }
+  });
+
+  // Sticky Cart Event
+  document.addEventListener("click", (event) => {
+    const stickyCart = event.target.closest("#stickyCart");
+    if (!stickyCart) {
+      return;
+    }
+    openOrderSection();
+  });
+
+  // Category Events
+  navEl.addEventListener("click", (event) => {
+    const button = event.target.closest(".chip");
+    if (!button) {
+      return;
+    }
+
+    activeCategory = button.dataset.category;
+    renderNav();
+    renderGrid();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
 
 
   // ==========================================================
-  // DATE HELPERS
+  // HELPERS
   // ==========================================================
 
   function getTodayDate() {
-
-    const now =
-      new Date();
-
-
-    const year =
-      now.getFullYear();
-
-
-    const month =
-      String(
-        now.getMonth() + 1
-      ).padStart(2, "0");
-
-
-    const day =
-      String(
-        now.getDate()
-      ).padStart(2, "0");
-
-
-    return (
-      year +
-      "-" +
-      month +
-      "-" +
-      day
-    );
-
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
   }
 
-
   function formatDate(dateString) {
-
-    const parts =
-      dateString.split("-");
-
-
+    const parts = dateString.split("-");
     if (parts.length !== 3) {
       return dateString;
     }
-
-
-    const year =
-      parts[0];
-
-
-    const month =
-      Number(parts[1]);
-
-
-    const day =
-      Number(parts[2]);
-
+    const year = parts[0];
+    const month = Number(parts[1]);
+    const day = Number(parts[2]);
 
     const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December"
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
     ];
 
-
-    return (
-      day +
-      " " +
-      monthNames[month - 1] +
-      " " +
-      year
-    );
-
+    return `${day} ${monthNames[month - 1]} ${year}`;
   }
-
 
   function formatDateTime(date) {
+    const datePart = date.toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric"
+    });
 
-    const datePart =
-      date.toLocaleDateString(
-        "en-IN",
-        {
-          day: "2-digit",
-          month: "short",
-          year: "numeric"
-        }
-      );
+    const timePart = date.toLocaleTimeString("en-IN", {
+      hour: "2-digit",
+      minute: "2-digit"
+    });
 
-
-    const timePart =
-      date.toLocaleTimeString(
-        "en-IN",
-        {
-          hour: "2-digit",
-          minute: "2-digit"
-        }
-      );
-
-
-    return (
-      datePart +
-      " at " +
-      timePart
-    );
-
+    return `${datePart} at ${timePart}`;
   }
-
-
-  // ==========================================================
-  // WHATSAPP VALIDATION
-  // ==========================================================
 
   function isValidWhatsapp(number) {
-
-    const digits =
-      number.replace(/\D/g, "");
-
-
-    return digits.length >= 10 &&
-      digits.length <= 15;
-
+    const digits = number.replace(/\D/g, "");
+    return digits.length >= 10 && digits.length <= 15;
   }
 
-
-  // ==========================================================
-  // FORMAT PRICE
-  // ==========================================================
-
   function formatPrice(price) {
-
-    const number =
-      Number(price);
-
-
+    const number = Number(price);
     if (Number.isNaN(number)) {
       return price;
     }
-
-
-    return (
-      "\u20B9" +
-      number.toLocaleString("en-IN")
-    );
-
+    return "\u20B9" + number.toLocaleString("en-IN");
   }
 
-
-  // ==========================================================
-  // ESCAPE HTML
-  // ==========================================================
-
   function escapeHtml(value) {
-
-    return String(value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-
+    const div = document.createElement("div");
+    div.textContent = String(value);
+    return div.innerHTML.replace(/"/g, "\u0026quot;").replace(/'/g, "\u0026#039;");
   }
 
 
@@ -1411,11 +1101,8 @@
   // ==========================================================
 
   renderNav();
-
   renderGrid();
-
   renderOrderSection();
-
   renderStickyCart();
 
 })();

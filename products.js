@@ -271,7 +271,7 @@ window.PRODUCTS = [
 
   {
     name: "Sunflower Mini Bouquet",
-    price: 150,
+    price: 200,
     category: "Bouquets",
     image: "images/bouquets/Sunflower Mini Bouquet.jpeg"
   },
@@ -285,7 +285,7 @@ window.PRODUCTS = [
 
   {
     name: "Sunshine Tulip Bouquet",
-    price: 400,
+    price: 450,
     category: "Bouquets",
     image: "images/bouquets/Sunshine Tulip Bouquet.jpeg",
     className: "special-image"
@@ -293,12 +293,11 @@ window.PRODUCTS = [
 
   {
     name: "Garden of Blooms",
-    price: 450,
+    price: 500,
     category: "Bouquets",
     image: "images/bouquets/Garden of Blooms.jpeg",
     className: "special-image"
   },
-
 
   // ==========================================================
   // PHOTO HOLDER
