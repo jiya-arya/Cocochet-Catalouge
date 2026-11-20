@@ -1167,7 +1167,7 @@ main {
   overflow: hidden;
   box-shadow: var(--shadow);
   scroll-snap-align: start;
-  cursor: zoom-in;
+  /* cursor: zoom-in; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1187,7 +1187,7 @@ main {
 }
 
 .review-shot::after {
-  content: "Tap to read";
+  /* content: "Tap to read"; */
   position: absolute;
   bottom: 8px;
   right: 8px;

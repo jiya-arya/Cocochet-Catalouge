@@ -963,7 +963,7 @@
     if (event.key === "Escape" && modalEl && !modalEl.hidden) {
       closeProductModal();
     }
-  });
+  }); 
 
   // Search Input
   if (searchInputEl) {
